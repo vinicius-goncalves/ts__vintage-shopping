@@ -16,16 +16,6 @@
 }
 
 @font-face {
-    src: url('../assets/fonts/calvous.otf');
-    font-family: 'calvous';
-}
-
-@font-face {
-    src: url('../assets/fonts/absender.ttf');
-    font-family: 'absender';
-}
-
-@font-face {
     src: url('../assets/fonts/monofonto.otf');
     font-family: 'monofonto';
 }
@@ -38,6 +28,21 @@
 @font-face {
     src: url('../assets/fonts/western.ttf');
     font-family: 'western';
+}
+
+@font-face {
+    src: url('../assets/fonts/de_louisville.otf');
+    font-family: 'louisville';
+}
+
+@font-face {
+    src: url('../assets/fonts/duality.otf');
+    font-family: 'duality';
+}
+
+@font-face {
+    src: url('../assets/fonts/edmunds.otf');
+    font-family: 'edmunds';
 }
 
 body {
@@ -66,9 +71,7 @@ body {
 }
 
 main {
-    /* display: flex; */
     width: 100%;
-    /* background-color: blue; */
 }
 
 main div.categories {
@@ -112,7 +115,7 @@ main div.categories {
 
         & img {
             filter: grayscale(1);
-            width: 150px;
+            width: 124px;
             position: absolute;
             right: 0;
             bottom: 50px;
@@ -121,9 +124,10 @@ main div.categories {
 
         & figcaption {
             text-align: right;
-            font-size: 4rem;
-            font-family: 'stengkol';
+            font-size: 2.5rem;
+            font-family: 'duality';
             color: #BA4642;
+            letter-spacing: 2px;
         }
     }
 
@@ -136,7 +140,7 @@ main div.categories {
         content: "";
         transform: rotate(-1.3rad);
         position: absolute;
-        top: 0;
+        top: 5px;
         right: 25px;
     }
 
@@ -162,3 +166,9 @@ footer {
     letter-spacing: 3px;
     font-weight: normal;
 }
+
+/* .toast {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+} */

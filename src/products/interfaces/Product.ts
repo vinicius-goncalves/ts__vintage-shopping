@@ -1,5 +1,3 @@
-import { Categories } from './Category.js';
-
 interface Product {
     id: string | number;
     name: string;

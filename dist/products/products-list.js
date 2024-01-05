@@ -1,7 +1,4 @@
-import { Categories } from './interfaces/Category.js';
-import type Product from './interfaces/Product.js';
-
-const products: Record<keyof typeof Categories, Array<Product>> = {
+const products = {
     CANNED_GOODS: [
         {
             id: 1,
@@ -69,7 +66,6 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             image_src: 'assets/images/products/BAKERY/BAKERY-5.png'
         },
         {
-
             id: 10,
             name: 'Donuts',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
@@ -79,7 +75,6 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
     ],
     BEVERAGES: [
         {
-
             id: 11,
             name: 'Lemon Soda',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
@@ -87,7 +82,6 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             image_src: 'assets/images/products/BEVERAGES/BEVERAGES-1.png'
         },
         {
-
             id: 12,
             name: 'Orange Soda',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
@@ -95,7 +89,6 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             image_src: 'assets/images/products/BEVERAGES/BEVERAGES-2.png'
         },
         {
-
             id: 13,
             name: 'Coca Cola',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
@@ -103,7 +96,6 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             image_src: 'assets/images/products/BEVERAGES/BEVERAGES-3.png'
         },
         {
-
             id: 14,
             name: 'Beer',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
@@ -112,5 +104,4 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
         }
     ]
 };
-
 export default products;
