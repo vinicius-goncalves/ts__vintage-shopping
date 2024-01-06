@@ -1,0 +1,46 @@
+.toast {
+
+    border: 1px solid #FFFFFF;
+    background-color: #2B2B2B;
+    padding: 10px;
+    margin: 5px 0;
+    width: fit-content;
+
+    & [data-toast="title"] {
+        font: normal 2rem 'duality', sans-serif;
+        letter-spacing: 2px;
+    }
+
+    & [data-toast="body"] {
+        font-size: 1.2rem;
+    }
+
+    & :is([data-toast="title"], [data-toast="body"]) {
+        color: #FFFFFF;
+    }
+}
+
+.toast.active {
+    animation: toast 50ms;
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+[data-temp="toasts-container"] {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1;
+}
+
+@keyframes toast {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}

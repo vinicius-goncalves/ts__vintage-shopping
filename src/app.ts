@@ -65,7 +65,7 @@ function renderProduct(product: Product, type: CategoryName) {
 
     buildElement('figcaption')
         .appendOn(figure)
-        .setText(product.price.replace(/4/, '1'))
+        .setText(`$${product.price}`)
         .build();
 
     productContainer.append(hgroup, figure);

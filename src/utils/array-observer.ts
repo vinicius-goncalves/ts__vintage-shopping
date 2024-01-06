@@ -5,15 +5,16 @@ interface ObservableFunctions<T> {
 }
 
 type CustomEvents<T> = Exclude<keyof ObservableFunctions<T>, 'on'>;
+type TEvent = { eventName: string, callback: (...args: any[]) => void };
 
 function observer<T = any>(target: Array<T>) {
 
     const observable = {};
-    const observables: Array<{ eventName: string, callback: (...args: any[]) => void }> = [];
+    const observables: Array<TEvent> = [];
 
     function triggerEvent(eventName: CustomEvents<T> & string, ...args: any[]): void | undefined {
 
-        const event = observables.find(evt => evt.eventName === eventName);
+        const event = observables.find((evt: TEvent) => evt.eventName === eventName);
 
         if(!event) {
             return undefined;
@@ -25,7 +26,7 @@ function observer<T = any>(target: Array<T>) {
     Object.defineProperties(observable, {
         on: {
             enumerable: true,
-            value: function on(eventName: string, callback: (...args: any[]) => void) {
+            value: function on(eventName: CustomEvents<T> & string, callback: (...args: any[]) => void) {
                 observables.push({ eventName, callback });
             }
         },

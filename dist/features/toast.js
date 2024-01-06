@@ -12,7 +12,7 @@ function createToast(toast) {
         .appendOn(toastWrapper)
         .build();
     const toastBody = buildElement('p')
-        .setCustomAttribute('data-toast', 'text')
+        .setCustomAttribute('data-toast', 'body')
         .setText(toast.body)
         .build();
     toastWrapper.append(toastTitle, toastBody);
@@ -21,7 +21,6 @@ function createToast(toast) {
 }
 function sendToast(toast) {
     const newToast = createToast(toast);
-    // newToast.style.setProperty('transform', 'translateY(50px)');
     newToast.classList.toggle('active');
     toastsContainer.append(newToast);
     toastsContainer.dispatchEvent(toastSent);

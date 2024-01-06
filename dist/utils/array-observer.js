@@ -3,7 +3,7 @@ function observer(target) {
     const observable = {};
     const observables = [];
     function triggerEvent(eventName, ...args) {
-        const event = observables.find(evt => evt.eventName === eventName);
+        const event = observables.find((evt) => evt.eventName === eventName);
         if (!event) {
             return undefined;
         }

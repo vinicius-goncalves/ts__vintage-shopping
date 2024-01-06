@@ -23,7 +23,7 @@ function createToast(toast: Toast) {
         .build();
 
     const toastBody = buildElement('p')
-        .setCustomAttribute('data-toast', 'text')
+        .setCustomAttribute('data-toast', 'body')
         .setText(toast.body)
         .build();
 
@@ -36,7 +36,6 @@ function createToast(toast: Toast) {
 function sendToast(toast: Toast) {
 
     const newToast = createToast(toast);
-    // newToast.style.setProperty('transform', 'translateY(50px)');
     newToast.classList.toggle('active');
 
     toastsContainer.append(newToast);
@@ -50,7 +49,6 @@ toastsContainer.addEventListener('toastsent', () => {
         const oldestToast = toastsCreated.pop();
         oldestToast?.remove();
         toastsCreated.slice(0, 1);
-
 
     }, toastsCreated.length * 2000);
 });

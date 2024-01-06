@@ -1,27 +1,71 @@
 import Product from '../../products/interfaces/Product.js';
 
 import getDB from './storage.js'
-import { startTransaction, flatProducts } from './utils.js'
+import { startTransaction, findProductById } from './utils.js'
 
+type DBMethodsReturnType = Promise<{ [key: string]: unknown, data: Product} | undefined>;
 
-class DBMethods {
+interface IDBMethods {
+    addProduct(id: string | number): DBMethodsReturnType;
+    removeProduct(id: string | number): DBMethodsReturnType;
+}
 
-    async putProduct(id: number): Promise<Product | undefined> {
+class DBMethods implements IDBMethods {
 
-        const db = await getDB();
-        const store = startTransaction(db, { objectStoreName: 'products', mode: 'readwrite' });
-        const productFound = flatProducts().find((product: Product) => product.id === id);
+    addProduct(id: string | number): DBMethodsReturnType {
+        return new Promise(async (resolve, reject) => {
 
-        if(!productFound) {
-            return;
-        }
+            const db = await getDB();
+            const store = startTransaction(db, { objectStoreName: 'products', mode: 'readwrite' });
 
-        store.put(productFound);
-        return productFound as Product;
+            const key = IDBKeyRange.only(id);
+            const reqGET = store.get(key);
+
+            reqGET.addEventListener('success', () => {
+
+                if(reqGET.result) {
+                    return (void reject('The product already exists.'));
+                }
+
+                const productFound = findProductById(id);
+
+                if(!productFound) {
+                    return (void resolve(undefined));
+                }
+
+                const reqADD = store.add(productFound);
+                reqADD.addEventListener('success', () => {
+                    resolve({ put: true, data: productFound });
+                });
+            });
+        });
     }
 
-    removeProduct(id: number) {
+    removeProduct(id: string | number): DBMethodsReturnType {
+        return new Promise(async (resolve) => {
 
+            const db = await getDB();
+            const store = startTransaction(db, { objectStoreName: 'products', mode: 'readwrite' });
+
+            const key = IDBKeyRange.only(id);
+            const reqGET = store.get(key);
+
+            reqGET.addEventListener('success', (): void => {
+
+                if(!reqGET.result) {
+                    return (void resolve(undefined));
+                }
+
+                const product: Product = reqGET.result;
+                const reqDELETE: IDBRequest = store.delete(key);
+
+                reqDELETE.addEventListener('success', (): void => {
+                    if(typeof reqDELETE.result === 'undefined') {
+                        resolve({ deleted: true, data: product });
+                    }
+                });
+            });
+        });
     }
 }
 

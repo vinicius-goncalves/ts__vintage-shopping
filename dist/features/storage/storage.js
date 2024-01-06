@@ -11,8 +11,8 @@ dbRequest.addEventListener('upgradeneeded', (event) => {
 });
 async function getDB() {
     return new Promise(resolve => {
-        dbRequest.addEventListener('success', (event) => {
-            const db = event.target.result;
+        dbRequest.addEventListener('success', () => {
+            const db = dbRequest.result;
             resolve(db);
         });
     });

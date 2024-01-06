@@ -2,7 +2,7 @@ interface Product {
     id: string | number;
     name: string;
     description: string;
-    price: `$${string | number}`;
+    price: string | number;
     image_src: string;
 }
 
