@@ -2,49 +2,30 @@
 <html lang="en-US">
     <head>
         <title>Vintage Shopping</title>
+
         <link
             rel="stylesheet"
-            href="style/main.css"
+            href="./style/main.css"
             type="text/css"
             referrerpolicy="no-referrer-when-downgrade">
+
         <link
             rel="stylesheet"
             href="style/features/toast.css"
             type="text/css"
             referrerpolicy="no-referrer-when-downgrade">
-        <style>
 
-            header {
-                nav {
-                    font-size: 1.5rem;
-                    font-family: 'monofonto';
-                    text-align: center;
-                    background-color: #2B2B2B;
-                    height: 50px;
-                    a {
-                        text-transform: uppercase;
-                        margin: 0 15px;
-                        text-decoration: none;
-                        color: #FFFFFF;
-                    }
-
-                    a:hover {
-                        text-decoration: underline;
-                    }
-                }
-            }
-        </style>
     </head>
     <body>
         <aside data-temp="toasts-container"></aside>
         <header>
-            <hgroup>
-                <h1>Vintage Shopping | Sale!</h1>
-                <p>The best products are here!</p>
+            <hgroup data-header="details">
+                <h1 data-details="title">Vintage Shopping | Sale!</h1>
+                <p data-details="description">The best products are here!</p>
             </hgroup>
-            <nav>
-                <a href="./pages/cart.html">Cart</a>
-                <a href="#">About</a>
+            <nav data-header="nav">
+                <a data-nav="anchor" href="./pages/cart.html">Cart</a>
+                <a data-nav="anchor" href="#">About</a>
             </nav>
         </header>
         <main data-products="main"></main>
@@ -53,7 +34,8 @@
         </footer>
 
         <script src="./app.js" type="module"></script>
-        <script src="./features/storage/storage.js" type="module"></script>
+        <!-- <script src="./features/storage/storage.js" type="module"></script>
+        <script src="./features/storage/DBMethods.js" type="module"></script> -->
 
     </body>
 </html>

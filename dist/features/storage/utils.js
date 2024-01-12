@@ -4,7 +4,13 @@ function flatProducts() {
     return productsFlatted;
 }
 function findProductById(id) {
-    return flatProducts().find((product) => product.id === id);
+    return new Promise((resolve, reject) => {
+        const productFound = flatProducts().find((product) => product.id === id);
+        return productFound ? resolve(productFound) : reject(undefined);
+    });
+}
+function isProduct(product) {
+    return product.id !== undefined;
 }
 function startTransaction(db, options) {
     const transaction = db.transaction(options.objectStoreName, options.mode);
@@ -14,4 +20,4 @@ function startTransaction(db, options) {
     const objectStore = transaction.objectStore(options.objectStoreName);
     return objectStore;
 }
-export { flatProducts, findProductById, startTransaction };
+export { flatProducts, findProductById, isProduct, startTransaction };

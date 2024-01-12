@@ -45,29 +45,50 @@
     font-family: 'edmunds';
 }
 
-body {
+body { margin: 5px; }
 
-    margin: 5px;
+header {
 
-    & header > hgroup {
+    & hgroup[data-header="details"] {
 
         background-color: #2B2B2B;
         color: #F2F2F2;
         padding: 15px;
         text-align: center;
 
-        & h1 {
+        & h1[data-details="title"] {
             font-size: 4rem;
             font-weight: normal;
             font-family: 'showguide', serif;
         }
 
-        & p {
+        & p[data-details="description"] {
             text-transform: uppercase;
             font-family: 'stengkol', serif;
             letter-spacing: 5px;
         }
     }
+
+    & nav[data-header="nav"] {
+
+        font-size: 1.5rem;
+        font-family: 'monofonto';
+        text-align: center;
+        background-color: #2B2B2B;
+        height: 50px;
+
+        & [data-nav="anchor"] {
+            text-transform: uppercase;
+            margin: 0 15px;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+
+        & [data-nav="anchor"]:hover {
+            text-decoration: underline;
+        }
+    }
+
 }
 
 main {

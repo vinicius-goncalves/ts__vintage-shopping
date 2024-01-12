@@ -18,6 +18,7 @@ dbRequest.addEventListener('upgradeneeded', (event: IDBVersionChangeEvent) => {
 });
 
 async function getDB(): Promise<IDBDatabase> {
+
     return new Promise(resolve => {
         dbRequest.addEventListener('success', () => {
             const db = dbRequest.result as IDBDatabase;
@@ -26,4 +27,4 @@ async function getDB(): Promise<IDBDatabase> {
     });
 }
 
-export default getDB;
+export { getDB };

@@ -1,31 +1,58 @@
-import getDB from './storage.js';
-import { startTransaction, findProductById } from './utils.js';
+import('./storage.js');
+import { getDB } from './storage.js';
+import { startTransaction, isProduct } from './utils.js';
+let db = getDB().then(db => db);
 class DBMethods {
-    addProduct(id) {
+    addProduct(product) {
         return new Promise(async (resolve, reject) => {
-            const db = await getDB();
-            const store = startTransaction(db, { objectStoreName: 'products', mode: 'readwrite' });
-            const key = IDBKeyRange.only(id);
+            if (!isProduct(product)) {
+                return resolve(undefined);
+            }
+            const storage = await db;
+            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readwrite' });
+            const key = IDBKeyRange.only(product.id);
             const reqGET = store.get(key);
             reqGET.addEventListener('success', () => {
                 if (reqGET.result) {
                     return (void reject('The product already exists.'));
                 }
-                const productFound = findProductById(id);
-                if (!productFound) {
-                    return (void resolve(undefined));
-                }
-                const reqADD = store.add(productFound);
+                const reqADD = store.add(product);
                 reqADD.addEventListener('success', () => {
-                    resolve({ put: true, data: productFound });
+                    resolve({ put: true, data: product });
                 });
+            });
+            reqGET.addEventListener('error', () => {
+                console.log('Error');
             });
         });
     }
-    removeProduct(id) {
+    getAllProducts() {
+        return new Promise(async (resolve, reject) => {
+            const storage = await db;
+            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readonly' });
+            const reqGET = store.getAll();
+            reqGET.addEventListener('success', () => {
+                if (!reqGET.result) {
+                    return (void reject(undefined));
+                }
+                resolve({ data: reqGET.result });
+            });
+        });
+    }
+    countAddedProducts() {
         return new Promise(async (resolve) => {
-            const db = await getDB();
-            const store = startTransaction(db, { objectStoreName: 'products', mode: 'readwrite' });
+            const storage = await db;
+            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readonly' });
+            const reqCOUNT = store.count();
+            reqCOUNT.addEventListener('success', () => {
+                resolve(reqCOUNT.result);
+            });
+        });
+    }
+    removeProductById(id) {
+        return new Promise(async (resolve) => {
+            const storage = await db;
+            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readwrite' });
             const key = IDBKeyRange.only(id);
             const reqGET = store.get(key);
             reqGET.addEventListener('success', () => {

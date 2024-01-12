@@ -1,17 +1,24 @@
+import('./features/storage/storage.js');
+
+import DBMethods from './features/storage/DBMethods.js';
+
 import { Categories } from './products/interfaces/Category.js';
 import type Product from './products/interfaces/Product.js';
 
 import products from './products/products-list.js';
 import buildElement from './utils/element-builder.js';
 import sendToast from './features/toast.js';
+import { findProductById } from './features/storage/utils.js';
 
 type CategoryName = keyof typeof Categories;
 
 const productsMain = document.querySelector('[data-products="main"]') as HTMLElement;
+const db = new DBMethods();
 
 function renderCategory(type: CategoryName): HTMLDivElement {
 
-    const title = type.replace(/_/g, ' ');
+    const removeUnderlineRegExp = new RegExp(/_/, 'g');
+    const title = type.replace(removeUnderlineRegExp, ' ');
 
     const div = buildElement('div')
         .setCustomAttribute('class', 'categories')
@@ -37,8 +44,24 @@ function renderProduct(product: Product, type: CategoryName) {
         .setCustomAttribute('data-product-id', product.id as string)
         .build();
 
-    productContainer.addEventListener('click', () => {
-        sendToast({ title: 'Yeah!', body: 'You have added a new product to your cart!' });
+    productContainer.addEventListener('click', async (): Promise<void> => {
+
+        db.addProduct(product)
+            .then(() => sendToast({ title: 'Yeah!', body: 'You have added a new product to your cart!' }))
+            .catch(() => sendToast({ title: 'Hey!', body: 'This product is already in your cart.' }));
+        // a.addProduct(product);
+        // db.addProductById(1);
+        // db.addProduct(product);
+        // const productFound = await findProductById(product.id);
+
+        // if(!productFound) {
+        //     return;
+        // }
+
+        // console.log(productFound)
+
+        // db.addProduct(productFound);
+        // sendToast({ title: 'Yeah!', body: 'You have added a new product to your cart!' });
     });
 
     const hgroup = buildElement('hgroup')

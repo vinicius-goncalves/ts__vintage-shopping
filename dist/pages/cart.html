@@ -11,130 +11,26 @@
             rel="stylesheet"
             href="../style/cart/products.css"
             type="text/css">
-        <style>
-
-            main {
-
-                display: flex;
-                justify-content: center;
-                gap: 15px;
-                margin: 15px 0;
-
-                & [data-cart="added-products-container"] {
-                    width: 60%;
-                }
-
-                & [data-cart="products-checkout"] {
-
-                    position: sticky;
-                    top: 15px;
-
-                    font-family: 'monofonto';
-                    border: 2px solid #2B2B2B;
-                    padding: 10px;
-                    height: fit-content;
-                    width: 30%;
-
-                    & .horizontal-bar {
-                        border-top: 1px solid #2B2B2B;
-                        border-bottom: transparent;
-                        margin: 10px 0;
-                    }
-                }
-
-                & [data-cart="products-details-overview"] {
-
-                    width: 100%;
-                    padding: 10px 0;
-                    display: flex;
-                    justify-content: space-between;
-
-                    & [data-cart-product="price"] {
-                        font: 1rem 'duality', sans-serif;
-                        color: #BA4642;
-                        letter-spacing: 2px;
-                    }
-                }
-            }
-
-            [data-cart="checkout-button"] {
-                background-color: #2B2B2B;
-                font-size: 1.2rem;
-                text-transform: uppercase;
-                color: #FFFFFF;
-                border: transparent;
-                padding: 10px;
-                margin-top: 15px;
-                font-family: 'Times New Roman', Times, serif;
-                cursor: pointer;
-                width: 100%;
-            }
-
-            header nav {
-                font-size: 1.5rem;
-                font-family: 'monofonto';
-                text-align: center;
-                background-color: #2B2B2B;
-                height: 50px;
-                letter-spacing: 5px;
-                font-weight: normal;
-
-                a {
-                    text-transform: uppercase;
-                    margin: 0 15px;
-                    text-decoration: none;
-                    color: #FFFFFF;
-                }
-
-                a:hover {
-                    text-decoration: underline;
-                }
-            }
-
-        </style>
     </head>
     <body>
         <header>
-            <hgroup>
-                <h1>Cart</h1>
-                <p>Check your cart</p>
+            <hgroup data-header="details">
+                <h1 data-details="title">Cart</h1>
+                <p data-details="description">Check your cart</p>
             </hgroup>
-            <nav>
-                <a href="../index.html">Home</a>
+            <nav data-header="nav">
+                <a data-nav="anchor" href="../index.html" target="_self">Home</a>
             </nav>
         </header>
-        <main>
-            <section data-cart="added-products-container">
-                <div data-cart="product">
-                    <figure data-cart-product="wrapper">
-                        <img
-                            data-cart-product="img"
-                            src="../assets/images/products/bakery/bakery-2.png">
-                        <figcaption data-cart-product="description">
-                            <p data-cart-product="title">Large Biscuits</p>
-                            <span data-cart-product="price">$3.45</span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div data-cart="product">
-                    <figure data-cart-product="wrapper">
-                        <img
-                            data-cart-product="img"
-                            src="../assets/images/products/bakery/bakery-2.png">
-                        <figcaption data-cart-product="description">
-                            <p data-cart-product="title">Large Biscuits</p>
-                            <span data-cart-product="price">$3.45</span>
-                        </figcaption>
-                    </figure>
-                </div>
-            </section>
+        <main data-html-element="cart">
+            <section data-cart="added-products-container"></section>
             <section data-cart="products-checkout">
                 <header>
                     <p>Cart Overview</p>
                 </header>
                 <hr class="horizontal-bar">
                 <div data-cart="products-details-overview">
-                    <p>Products (<span data-cart="total-added-products">1</span>)</p>
+                    <p>Products (<span data-cart="total-added-products">?</span>)</p>
                     <span data-cart-product="price">$9.99</span>
                 </div>
                 <button data-cart="checkout-button">
@@ -142,5 +38,6 @@
                 </button>
             </section>
         </main>
+        <script src="../features/cart/products-render.js" type="module"></script>
     </body>
 </html>

@@ -27,7 +27,7 @@ function sendToast(toast) {
 }
 toastsContainer.addEventListener('toastsent', () => {
     setTimeout(() => {
-        const oldestToast = toastsCreated.pop();
+        const oldestToast = toastsCreated.shift();
         oldestToast?.remove();
         toastsCreated.slice(0, 1);
     }, toastsCreated.length * 2000);

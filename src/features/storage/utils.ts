@@ -6,8 +6,15 @@ function flatProducts() {
     return productsFlatted;
 }
 
-function findProductById(id: string | number) {
-    return flatProducts().find((product: Product) => product.id === id);
+function findProductById(id: string | number): Promise<Product | undefined> {
+    return new Promise((resolve, reject): void => {
+        const productFound = flatProducts().find((product: Product) => product.id === id);
+        return productFound ? resolve(productFound) : reject(undefined);
+    })
+}
+
+function isProduct(product: Product): product is Product {
+    return (product as Product).id !== undefined;
 }
 
 function startTransaction(db: IDBDatabase, options: { objectStoreName: string, mode: 'readwrite' | 'readonly' }): IDBObjectStore {
@@ -24,5 +31,6 @@ function startTransaction(db: IDBDatabase, options: { objectStoreName: string, m
 export {
     flatProducts,
     findProductById,
+    isProduct,
     startTransaction
 };

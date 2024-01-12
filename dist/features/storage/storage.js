@@ -17,4 +17,4 @@ async function getDB() {
         });
     });
 }
-export default getDB;
+export { getDB };

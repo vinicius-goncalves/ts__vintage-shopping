@@ -33,20 +33,20 @@ function createToast(toast: Toast) {
     return toastWrapper;
 }
 
-function sendToast(toast: Toast) {
+function sendToast(toast: Toast): void {
 
-    const newToast = createToast(toast);
+    const newToast: HTMLElement = createToast(toast);
     newToast.classList.toggle('active');
 
     toastsContainer.append(newToast);
     toastsContainer.dispatchEvent(toastSent);
 }
 
-toastsContainer.addEventListener('toastsent', () => {
+toastsContainer.addEventListener('toastsent', (): void => {
 
     setTimeout(() => {
 
-        const oldestToast = toastsCreated.pop();
+        const oldestToast = toastsCreated.shift();
         oldestToast?.remove();
         toastsCreated.slice(0, 1);
 
