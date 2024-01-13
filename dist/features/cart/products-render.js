@@ -1,20 +1,11 @@
 import buildElement from '../../utils/element-builder.js';
 import DBMethods from '../storage/DBMethods.js';
+import CartMethods from './CartMethods.js';
 const db = new DBMethods();
 const addedProductsContainer = document.querySelector('section[data-cart="added-products-container"]');
 const totalAddedProducts = document.querySelector('span[data-cart="total-added-products"');
 const DOMtotalPrice = document.querySelector('span[data-cart-product="price"]');
-function removeProductFromDOM(product) {
-    const productFound = addedProductsContainer.querySelector(`[data-product-id="${product.id}"]`);
-    if (!productFound) {
-        return;
-    }
-    productFound.remove();
-}
-function removeProductFromCart(product) {
-    db.removeProductById(product.id);
-    removeProductFromDOM(product);
-}
+const cm = new CartMethods();
 function renderCartProduct(product) {
     const productWrapper = buildElement('div')
         .setCustomAttribute('data-cart', 'product')
@@ -46,7 +37,7 @@ function renderCartProduct(product) {
         .setCustomAttribute('data-cart', 'remove-from-cart')
         .setText('Remove')
         .appendOn(productDescription)
-        .on('click', () => removeProductFromCart(product))
+        .on('click', () => cm.removeProductFromCart(product))
         .build();
     productWrapper.appendChild(productDetails);
     return productWrapper;

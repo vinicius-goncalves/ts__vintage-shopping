@@ -9,11 +9,12 @@ import products from './products/products-list.js';
 import buildElement from './utils/element-builder.js';
 import sendToast from './features/toast.js';
 import { findProductById } from './features/storage/utils.js';
+import CartMethods from './features/cart/CartMethods.js';
 
 type CategoryName = keyof typeof Categories;
 
 const productsMain = document.querySelector('[data-products="main"]') as HTMLElement;
-const db = new DBMethods();
+const cm = new CartMethods();
 
 function renderCategory(type: CategoryName): HTMLDivElement {
 
@@ -37,18 +38,12 @@ function renderCategory(type: CategoryName): HTMLDivElement {
     return div;
 }
 
-function addProductToCart(product: Product) {
-    db.addProduct(product)
-        .then(() => sendToast({ title: 'Yeah!', body: 'You have added a new product to your cart!' }))
-        .catch(() => sendToast({ title: 'Hey!', body: 'This product is already in your cart.' }));
-}
-
 function renderProduct(product: Product, type: CategoryName) {
 
     const productContainer = buildElement('article')
         .setCustomAttribute('data-product-type', type)
         .setCustomAttribute('data-product-id', product.id as string)
-        .on('click', () => addProductToCart(product))
+        .on('click', () => cm.addProductIntoCart(product))
         .build();
 
     const hgroup = buildElement('hgroup')

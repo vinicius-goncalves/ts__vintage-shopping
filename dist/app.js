@@ -1,10 +1,9 @@
 import('./features/storage/storage.js');
-import DBMethods from './features/storage/DBMethods.js';
 import products from './products/products-list.js';
 import buildElement from './utils/element-builder.js';
-import sendToast from './features/toast.js';
+import CartMethods from './features/cart/CartMethods.js';
 const productsMain = document.querySelector('[data-products="main"]');
-const db = new DBMethods();
+const cm = new CartMethods();
 function renderCategory(type) {
     const removeUnderlineRegExp = new RegExp(/_/, 'g');
     const title = type.replace(removeUnderlineRegExp, ' ');
@@ -21,16 +20,11 @@ function renderCategory(type) {
         .build();
     return div;
 }
-function addProductToCart(product) {
-    db.addProduct(product)
-        .then(() => sendToast({ title: 'Yeah!', body: 'You have added a new product to your cart!' }))
-        .catch(() => sendToast({ title: 'Hey!', body: 'This product is already in your cart.' }));
-}
 function renderProduct(product, type) {
     const productContainer = buildElement('article')
         .setCustomAttribute('data-product-type', type)
         .setCustomAttribute('data-product-id', product.id)
-        .on('click', () => addProductToCart(product))
+        .on('click', () => cm.addProductIntoCart(product))
         .build();
     const hgroup = buildElement('hgroup')
         .appendOn(productContainer)

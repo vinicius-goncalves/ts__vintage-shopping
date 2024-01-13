@@ -1,27 +1,14 @@
 import Product from '../../products/interfaces/Product.js';
 import buildElement from '../../utils/element-builder.js';
 import DBMethods from '../storage/DBMethods.js';
+import CartMethods from './CartMethods.js';
 
 const db = new DBMethods();
 const addedProductsContainer = document.querySelector('section[data-cart="added-products-container"]') as HTMLElement;
 const totalAddedProducts = document.querySelector('span[data-cart="total-added-products"') as HTMLSpanElement;
 const DOMtotalPrice = document.querySelector('span[data-cart-product="price"]') as HTMLSpanElement;
 
-function removeProductFromDOM(product: Product) {
-
-    const productFound = addedProductsContainer.querySelector(`[data-product-id="${product.id}"]`);
-
-    if(!productFound) {
-        return;
-    }
-
-    productFound.remove();
-}
-
-function removeProductFromCart(product: Product) {
-    db.removeProductById(product.id);
-    removeProductFromDOM(product);
-}
+const cm = new CartMethods();
 
 function renderCartProduct(product: Product) {
 
@@ -61,7 +48,7 @@ function renderCartProduct(product: Product) {
                 .setCustomAttribute('data-cart', 'remove-from-cart')
                 .setText('Remove')
                 .appendOn(productDescription)
-                .on('click', () => removeProductFromCart(product))
+                .on('click', () => cm.removeProductFromCart(product))
                 .build();
 
     productWrapper.appendChild(productDetails);
