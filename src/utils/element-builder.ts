@@ -7,7 +7,8 @@ interface ElementBuilder<T extends keyof HTMLElementTagNameMap = any> {
     setText(text: Text | string): ElementBuilder<T>;
     addAttributes(attributes: { [name: string]: string }): ElementBuilder<T>;
     append(child: HTMLElement): ElementBuilder<T>;
-    appendOn(target: HTMLElement): ElementBuilder<T>
+    appendOn(target: HTMLElement): ElementBuilder<T>;
+    on(event: keyof GlobalEventHandlersEventMap, callback: (...args: any[]) => void): ElementBuilder<T>;
     build(): HTMLElementTagNameMap[T];
 }
 
@@ -46,6 +47,10 @@ function buildElement<T extends keyof HTMLElementTagNameMap>(element: T & string
         },
         appendOn(target: HTMLElement): ElementBuilder<T> {
             target.append(el);
+            return this;
+        },
+        on(event: keyof GlobalEventHandlersEventMap, callback: (event: Event) => void): ElementBuilder<T> {
+            el.addEventListener(event, callback);
             return this;
         },
         build(): HTMLElementTagNameMap[T] {

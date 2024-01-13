@@ -37,32 +37,19 @@ function renderCategory(type: CategoryName): HTMLDivElement {
     return div;
 }
 
+function addProductToCart(product: Product) {
+    db.addProduct(product)
+        .then(() => sendToast({ title: 'Yeah!', body: 'You have added a new product to your cart!' }))
+        .catch(() => sendToast({ title: 'Hey!', body: 'This product is already in your cart.' }));
+}
+
 function renderProduct(product: Product, type: CategoryName) {
 
     const productContainer = buildElement('article')
         .setCustomAttribute('data-product-type', type)
         .setCustomAttribute('data-product-id', product.id as string)
+        .on('click', () => addProductToCart(product))
         .build();
-
-    productContainer.addEventListener('click', async (): Promise<void> => {
-
-        db.addProduct(product)
-            .then(() => sendToast({ title: 'Yeah!', body: 'You have added a new product to your cart!' }))
-            .catch(() => sendToast({ title: 'Hey!', body: 'This product is already in your cart.' }));
-        // a.addProduct(product);
-        // db.addProductById(1);
-        // db.addProduct(product);
-        // const productFound = await findProductById(product.id);
-
-        // if(!productFound) {
-        //     return;
-        // }
-
-        // console.log(productFound)
-
-        // db.addProduct(productFound);
-        // sendToast({ title: 'Yeah!', body: 'You have added a new product to your cart!' });
-    });
 
     const hgroup = buildElement('hgroup')
         .appendOn(productContainer)

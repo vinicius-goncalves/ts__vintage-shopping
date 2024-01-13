@@ -3,9 +3,22 @@ import DBMethods from '../storage/DBMethods.js';
 const db = new DBMethods();
 const addedProductsContainer = document.querySelector('section[data-cart="added-products-container"]');
 const totalAddedProducts = document.querySelector('span[data-cart="total-added-products"');
+const DOMtotalPrice = document.querySelector('span[data-cart-product="price"]');
+function removeProductFromDOM(product) {
+    const productFound = addedProductsContainer.querySelector(`[data-product-id="${product.id}"]`);
+    if (!productFound) {
+        return;
+    }
+    productFound.remove();
+}
+function removeProductFromCart(product) {
+    db.removeProductById(product.id);
+    removeProductFromDOM(product);
+}
 function renderCartProduct(product) {
     const productWrapper = buildElement('div')
         .setCustomAttribute('data-cart', 'product')
+        .setCustomAttribute('data-product-id', product.id)
         .build();
     const productDetails = buildElement('figure')
         .setCustomAttribute('data-cart-product', 'details')
@@ -28,6 +41,12 @@ function renderCartProduct(product) {
         .setCustomAttribute('data-cart-product', 'price')
         .setText(`$${product.price}`)
         .appendOn(productDescription)
+        .build();
+    buildElement('button')
+        .setCustomAttribute('data-cart', 'remove-from-cart')
+        .setText('Remove')
+        .appendOn(productDescription)
+        .on('click', () => removeProductFromCart(product))
         .build();
     productWrapper.appendChild(productDetails);
     return productWrapper;
@@ -52,7 +71,22 @@ async function updateProductsAdded() {
     const totalProductsInCart = await db.countAddedProducts();
     totalAddedProducts.textContent = totalProductsInCart;
 }
+async function updatePrice() {
+    const products = await db.getAllProducts();
+    if (!products) {
+        return;
+    }
+    const { data } = products;
+    if (!Array.isArray(data)) {
+        return;
+    }
+    const totalPrice = data.reduce((acc, product) => {
+        return acc += Number(product.price);
+    }, 0);
+    DOMtotalPrice.textContent = `$${totalPrice}`;
+}
 window.addEventListener('DOMContentLoaded', () => {
     loadProducts();
     updateProductsAdded();
+    updatePrice();
 });

@@ -17,6 +17,9 @@
 
         & [data-cart-product="description"] {
 
+            display: flex;
+            flex-direction: column;
+
             & [data-cart-product="title"] {
                 font: normal 1.5rem 'monofonto', sans-serif;
                 text-transform: uppercase;
@@ -26,6 +29,19 @@
                 font: 1.5rem 'duality', sans-serif;
                 color: #BA4642;
                 letter-spacing: 2px;
+            }
+
+            & [data-cart="remove-from-cart"] {
+                outline: none;
+                border: none;
+                background-color: transparent;
+                color: #BA4642;
+                width: 0;
+            }
+
+            & [data-cart="remove-from-cart"]:hover {
+                text-decoration: underline;
+                cursor: pointer;
             }
         }
     }

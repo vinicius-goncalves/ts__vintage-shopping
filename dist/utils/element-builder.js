@@ -31,6 +31,10 @@ function buildElement(element) {
             target.append(el);
             return this;
         },
+        on(event, callback) {
+            el.addEventListener(event, callback);
+            return this;
+        },
         build() {
             return el;
         }
