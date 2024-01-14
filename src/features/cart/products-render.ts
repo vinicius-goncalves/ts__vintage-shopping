@@ -102,7 +102,7 @@ async function updatePrice() {
         return acc += Number(product.price);
     }, 0);
 
-    DOMtotalPrice.textContent = `$${totalPrice}`
+    DOMtotalPrice.textContent = `$${totalPrice.toFixed(2)}`
 }
 
 window.addEventListener('DOMContentLoaded', () => {

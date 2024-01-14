@@ -74,7 +74,7 @@ async function updatePrice() {
     const totalPrice = data.reduce((acc, product) => {
         return acc += Number(product.price);
     }, 0);
-    DOMtotalPrice.textContent = `$${totalPrice}`;
+    DOMtotalPrice.textContent = `$${totalPrice.toFixed(2)}`;
 }
 window.addEventListener('DOMContentLoaded', () => {
     loadProducts();

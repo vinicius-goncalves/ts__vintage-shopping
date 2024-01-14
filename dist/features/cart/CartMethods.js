@@ -10,7 +10,8 @@ class CartMethods {
     }
     removeProductFromCart(product) {
         db.removeProductById(product.id)
-            .then(() => findDOMElement(`[data-product-id="${product.id}"]`)?.remove());
+            .then(() => findDOMElement(`[data-product-id="${product.id}"]`)?.remove())
+            .then(() => sendToast({ title: 'Ok', body: 'You have removed a product from your cart.' }));
     }
 }
 export default CartMethods;

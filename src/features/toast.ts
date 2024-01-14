@@ -42,15 +42,23 @@ function sendToast(toast: Toast): void {
     toastsContainer.dispatchEvent(toastSent);
 }
 
-toastsContainer.addEventListener('toastsent', (): void => {
+window.addEventListener('DOMContentLoaded', () => {
 
-    setTimeout(() => {
+    if(!toastsContainer) {
+        return;
+    }
 
-        const oldestToast = toastsCreated.shift();
-        oldestToast?.remove();
-        toastsCreated.slice(0, 1);
+    toastsContainer.addEventListener('toastsent', (): void => {
 
-    }, toastsCreated.length * 2000);
-});
+        setTimeout(() => {
+
+            const oldestToast = toastsCreated.shift();
+            oldestToast?.remove();
+            toastsCreated.slice(0, 1);
+
+        }, toastsCreated.length * 2000);
+    });
+
+})
 
 export default sendToast;

@@ -25,11 +25,16 @@ function sendToast(toast) {
     toastsContainer.append(newToast);
     toastsContainer.dispatchEvent(toastSent);
 }
-toastsContainer.addEventListener('toastsent', () => {
-    setTimeout(() => {
-        const oldestToast = toastsCreated.shift();
-        oldestToast?.remove();
-        toastsCreated.slice(0, 1);
-    }, toastsCreated.length * 2000);
+window.addEventListener('DOMContentLoaded', () => {
+    if (!toastsContainer) {
+        return;
+    }
+    toastsContainer.addEventListener('toastsent', () => {
+        setTimeout(() => {
+            const oldestToast = toastsCreated.shift();
+            oldestToast?.remove();
+            toastsCreated.slice(0, 1);
+        }, toastsCreated.length * 2000);
+    });
 });
 export default sendToast;

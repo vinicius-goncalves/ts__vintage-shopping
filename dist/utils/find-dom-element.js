@@ -1,10 +1,7 @@
-function findDOMElement(selector, root) {
-    if (root) {
+function findDOMElement(selector, root = document.body) {
+    return new Promise(resolve => {
         const elFound = root.querySelector(selector);
-        return elFound?.matches(selector) ? elFound : undefined;
-    }
-    const body = document.body;
-    const elFound = body.querySelector(selector);
-    return elFound?.matches(selector) ? elFound : undefined;
+        return resolve(elFound?.matches(selector) ? elFound : undefined);
+    });
 }
 export default findDOMElement;
