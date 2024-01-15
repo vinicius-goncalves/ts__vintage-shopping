@@ -80,8 +80,8 @@ function loadProducts() {
 }
 
 async function updateProductsAdded() {
-    const totalProductsInCart = await db.countAddedProducts();
-    totalAddedProducts.textContent = totalProductsInCart as string;
+    const { count } = await db.countAddedProducts();
+    totalAddedProducts.textContent = String(count);
 }
 
 async function updatePrice() {

@@ -1,4 +1,4 @@
-import findDOMElement from '../../utils/find-dom-element.js';
+import { removeDOMElement } from '../../utils/dom-manipulation.js';
 import DBMethods from '../storage/DBMethods.js';
 import sendToast from '../toast.js';
 const db = new DBMethods();
@@ -10,8 +10,8 @@ class CartMethods {
     }
     removeProductFromCart(product) {
         db.removeProductById(product.id)
-            .then(() => findDOMElement(`[data-product-id="${product.id}"]`)?.remove())
-            .then(() => sendToast({ title: 'Ok', body: 'You have removed a product from your cart.' }));
+            .then(() => sendToast({ title: 'Ok', body: 'You have removed a product from your cart.' }))
+            .then(async () => removeDOMElement(`[data-product-id="${product.id}"]`));
     }
 }
 export default CartMethods;

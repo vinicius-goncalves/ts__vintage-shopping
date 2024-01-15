@@ -6,7 +6,7 @@ class DBMethods {
     addProduct(product) {
         return new Promise(async (resolve, reject) => {
             if (!isProduct(product)) {
-                return resolve(undefined);
+                return reject({ reason: 'invalid_product' });
             }
             const storage = await db;
             const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readwrite' });
@@ -14,15 +14,22 @@ class DBMethods {
             const reqGET = store.get(key);
             reqGET.addEventListener('success', () => {
                 if (reqGET.result) {
-                    return (void reject('The product already exists.'));
+                    return reject({ reason: 'product_already_in_cart' });
                 }
                 const reqADD = store.add(product);
                 reqADD.addEventListener('success', () => {
-                    resolve({ put: true, data: product });
+                    resolve({ product });
                 });
             });
-            reqGET.addEventListener('error', () => {
-                console.log('Error');
+        });
+    }
+    countAddedProducts() {
+        return new Promise(async (resolve) => {
+            const storage = await db;
+            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readonly' });
+            const reqCOUNT = store.count();
+            reqCOUNT.addEventListener('success', () => {
+                resolve({ count: reqCOUNT.result });
             });
         });
     }
@@ -33,37 +40,27 @@ class DBMethods {
             const reqGET = store.getAll();
             reqGET.addEventListener('success', () => {
                 if (!reqGET.result) {
-                    return (void reject(undefined));
+                    return reject(undefined);
                 }
                 resolve({ data: reqGET.result });
             });
         });
     }
-    countAddedProducts() {
-        return new Promise(async (resolve) => {
-            const storage = await db;
-            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readonly' });
-            const reqCOUNT = store.count();
-            reqCOUNT.addEventListener('success', () => {
-                resolve(reqCOUNT.result);
-            });
-        });
-    }
     removeProductById(id) {
-        return new Promise(async (resolve) => {
+        return new Promise(async (resolve, reject) => {
             const storage = await db;
             const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readwrite' });
             const key = IDBKeyRange.only(id);
             const reqGET = store.get(key);
             reqGET.addEventListener('success', () => {
                 if (!reqGET.result) {
-                    return (void resolve(undefined));
+                    return reject({ reason: 'product_does_not_exist' });
                 }
                 const product = reqGET.result;
                 const reqDELETE = store.delete(key);
                 reqDELETE.addEventListener('success', () => {
                     if (typeof reqDELETE.result === 'undefined') {
-                        resolve({ deleted: true, data: product });
+                        resolve({ product });
                     }
                 });
             });

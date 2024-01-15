@@ -3,53 +3,64 @@ import('./storage.js');
 import type Product from '../../products/interfaces/Product.js';
 import { getDB } from './storage.js';
 
-import { startTransaction, findProductById, isProduct } from './utils.js'
-
-type DBMethodsReturnType = Promise<{ [key: string]: unknown, data: Product | Product[] } | undefined>;
+import { startTransaction, isProduct, findProductById } from './utils.js'
 
 interface IDBMethods {
-    addProduct(product: Product): DBMethodsReturnType;
-    getAllProducts(): DBMethodsReturnType;
-    removeProductById(id: string | number): DBMethodsReturnType;
+    addProduct(product: Product): Promise<{ product: Product }>;
+    countAddedProducts(): Promise<{ count: number }>;
+    getAllProducts(): Promise<{ data: Product[] }>;
+    removeProductById(id: string | number): Promise<{ product: Product } | { reason: string }>;
 }
 
 let db = getDB().then(db => db);
 
 class DBMethods implements IDBMethods {
 
-    addProduct(product: Product): DBMethodsReturnType {
+    addProduct(product: Product): Promise<{ product: Product }> {
 
-        return new Promise(async (resolve, reject): Promise<void> => {
+        return new Promise(async (resolve, reject) => {
 
             if(!isProduct(product)) {
-                return resolve(undefined)
+                return reject({ reason: 'invalid_product' });
             }
 
-            const storage = await db;
-            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readwrite' });
+            const storage: IDBDatabase = await db;
+            const store: IDBObjectStore = startTransaction(storage, { objectStoreName: 'products', mode: 'readwrite' });
 
-            const key = IDBKeyRange.only(product.id);
-            const reqGET = store.get(key);
+            const key: IDBKeyRange = IDBKeyRange.only(product.id);
+            const reqGET: IDBRequest<Product> = store.get(key);
 
-            reqGET.addEventListener('success', () => {
+            reqGET.addEventListener('success', (): void => {
 
                 if(reqGET.result) {
-                    return (void reject('The product already exists.'));
+                    return reject({ reason: 'product_already_in_cart' });
                 }
 
                 const reqADD = store.add(product);
+
                 reqADD.addEventListener('success', () => {
-                    resolve({ put: true, data: product });
+                    resolve({ product });
                 });
             });
-
-            reqGET.addEventListener('error', () => {
-                console.log('Error')
-            })
         });
     }
 
-    getAllProducts(): DBMethodsReturnType {
+    countAddedProducts(): Promise<{ count: number }> {
+
+        return new Promise(async (resolve) => {
+
+            const storage: IDBDatabase = await db;
+            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readonly' });
+
+            const reqCOUNT: IDBRequest<number> = store.count();
+
+            reqCOUNT.addEventListener('success', (): void => {
+                resolve({ count: reqCOUNT.result });
+            });
+        });
+    }
+
+    getAllProducts(): Promise<{ data: Product[] }> {
 
         return new Promise(async (resolve, reject) => {
 
@@ -61,7 +72,7 @@ class DBMethods implements IDBMethods {
             reqGET.addEventListener('success', (): void => {
 
                 if(!reqGET.result) {
-                    return (void reject(undefined));
+                    return reject(undefined);
                 }
 
                 resolve({ data: reqGET.result as Product[] });
@@ -69,35 +80,20 @@ class DBMethods implements IDBMethods {
         });
     }
 
-    countAddedProducts() {
+    removeProductById(id: string | number): Promise<{ product: Product } | { reason: string }> {
 
-        return new Promise(async (resolve) => {
+        return new Promise(async (resolve, reject) => {
 
-            const storage = await db;
-            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readonly' });
+            const storage: IDBDatabase = await db;
+            const store: IDBObjectStore = startTransaction(storage, { objectStoreName: 'products', mode: 'readwrite' });
 
-            const reqCOUNT = store.count();
-
-            reqCOUNT.addEventListener('success', () => {
-                resolve(reqCOUNT.result);
-            });
-        });
-    }
-
-    removeProductById(id: string | number): DBMethodsReturnType {
-
-        return new Promise(async (resolve) => {
-
-            const storage = await db;
-            const store = startTransaction(storage, { objectStoreName: 'products', mode: 'readwrite' });
-
-            const key = IDBKeyRange.only(id);
+            const key: IDBKeyRange = IDBKeyRange.only(id);
             const reqGET = store.get(key);
 
             reqGET.addEventListener('success', (): void => {
 
                 if(!reqGET.result) {
-                    return (void resolve(undefined));
+                    return reject({ reason: 'product_does_not_exist' });
                 }
 
                 const product: Product = reqGET.result;
@@ -105,7 +101,7 @@ class DBMethods implements IDBMethods {
 
                 reqDELETE.addEventListener('success', (): void => {
                     if(typeof reqDELETE.result === 'undefined') {
-                        resolve({ deleted: true, data: product });
+                        resolve({ product });
                     }
                 });
             });
