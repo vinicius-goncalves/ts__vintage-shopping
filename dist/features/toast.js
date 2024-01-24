@@ -1,10 +1,12 @@
 import buildElement from '../utils/element-builder.js';
+const MAX_TOASTS = 5;
+const MAX_MILLISECONDS_DURATION = 2000;
 const toastsCreated = [];
 const toastsContainer = document.querySelector('[data-temp="toasts-container"]');
 const toastSent = new CustomEvent('toastsent');
 function createToast(toast) {
     const toastWrapper = buildElement('aside')
-        .setCustomAttribute('class', 'toast')
+        .addClasses('toast', 'active')
         .build();
     const toastTitle = buildElement('h2')
         .setCustomAttribute('data-toast', 'title')
@@ -21,20 +23,24 @@ function createToast(toast) {
 }
 function sendToast(toast) {
     const newToast = createToast(toast);
-    newToast.classList.toggle('active');
     toastsContainer.append(newToast);
     toastsContainer.dispatchEvent(toastSent);
+}
+function removeOldestToast() {
+    const oldestToast = toastsCreated.shift();
+    oldestToast?.remove();
 }
 window.addEventListener('DOMContentLoaded', () => {
     if (!toastsContainer) {
         return;
     }
     toastsContainer.addEventListener('toastsent', () => {
+        if (toastsCreated.length >= MAX_TOASTS) {
+            removeOldestToast();
+        }
         setTimeout(() => {
-            const oldestToast = toastsCreated.shift();
-            oldestToast?.remove();
-            toastsCreated.slice(0, 1);
-        }, toastsCreated.length * 2000);
+            removeOldestToast();
+        }, toastsCreated.length * MAX_MILLISECONDS_DURATION);
     });
 });
 export default sendToast;

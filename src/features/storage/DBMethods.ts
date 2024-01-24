@@ -1,8 +1,8 @@
 import('./storage.js');
 
 import type Product from '../../products/interfaces/Product.js';
-import { getDB } from './storage.js';
 
+import { getDB } from './storage.js';
 import { startTransaction, isProduct, findProductById } from './utils.js'
 
 interface IDBMethods {
@@ -12,7 +12,7 @@ interface IDBMethods {
     removeProductById(id: string | number): Promise<{ product: Product } | { reason: string }>;
 }
 
-let db = getDB().then(db => db);
+let db: Promise<IDBDatabase> = getDB().then(db => db);
 
 class DBMethods implements IDBMethods {
 

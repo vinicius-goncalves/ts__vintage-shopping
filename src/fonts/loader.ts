@@ -1,37 +1,37 @@
-const fc = new FontFace('showguide', "url('../dist/assets/fonts/showguide.TTF')", { display: 'auto' });
-document.fonts.add(fc);
-fc.load().then(font => {
-    console.log(font)
-})
+interface Font {
+    name: string;
+    src: string;
+}
 
-// document.fonts.addEventListener('loading', (event) => {
-//     // console.log(event);
-// });
+const BASE_URL: string = '/dist/assets/fonts';
 
-// const xhr = new XMLHttpRequest();
+const fonts: Array<Font> = [
+    { name: 'showguide', src: `url('${BASE_URL}/showguide.ttf')`},
+    { name: 'monofonto', src: `url('${BASE_URL}/monofonto.otf')`},
+    { name: 'stengkol', src: `url('${BASE_URL}/stengkol.otf')` },
+    { name: 'duality', src: `url('${BASE_URL}/duality.otf')` },
+];
 
-// xhr.addEventListener('load', async () => {
+function createFontFace(font: Font): FontFace {
 
+    const fcOptions: FontFaceDescriptors = {
+        style: 'normal',
+        weight: '500'
+    };
 
-//     const blob = xhr.response as Blob;
+    const fc = new FontFace(font.name, font.src, fcOptions);
+    return fc;
+}
 
-//     const fc = new FontFace('showguide', await blob.arrayBuffer());
-//     document.fonts.add(fc);
+function loadFontFace(font: Font): boolean {
 
-//     const res = document.fonts.has(fc);
-//     console.log(res)    // fc.load().then(() => {
-//     //     console.log('a')
-//     // })
+    const fc = createFontFace(font);
+    document.fonts.add(fc);
 
-//     // fc.load().then(res => {
-//     //      document.fonts.load(res.family).then(res => {
-//     //         console.log(res)
-//     //      })
-//     // })
-//     // fc.load().then(() => console.log('a'))
-// });
+    const hasFontFace = document.fonts.has(fc);
+    return hasFontFace;
+}
 
-// xhr.responseType = 'blob';
-// xhr.open('GET', '../dist/assets/fonts/showguide.TTF');
-// xhr.send();
-// // const fc = new FontFace('showguide', )
+fonts.forEach(font => loadFontFace(font));
+
+export default {};

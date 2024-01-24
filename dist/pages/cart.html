@@ -9,11 +9,15 @@
             referrerpolicy="no-referrer-when-downgrade">
         <link
             rel="stylesheet"
-            href="../style/cart/products.css"
+            href="../style/cart/product.css"
             type="text/css">
         <link
             rel="stylesheet"
             href="../style/features/toast.css"
+            type="text/css">
+        <link
+            rel="stylesheet"
+            href="../style/cart/cart.css"
             type="text/css">
     </head>
     <body>
@@ -28,7 +32,9 @@
             </nav>
         </header>
         <main data-html-element="cart">
-            <section data-cart="added-products-container"></section>
+            <section data-cart="cart-products">
+                <p data-cart="empty-cart-text">Your cart is empty!</p>
+            </section>
             <section data-cart="products-checkout">
                 <header>
                     <p>Cart Overview</p>
@@ -43,6 +49,6 @@
                 </button>
             </section>
         </main>
-        <script src="../features/cart/products-render.js" type="module"></script>
+        <script src="../features/cart/cart-products-loader.js" type="module"></script>
     </body>
 </html>

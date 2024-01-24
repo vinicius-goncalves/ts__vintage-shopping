@@ -1,3 +1,4 @@
+import('./fonts/loader.js');
 import('./features/storage/storage.js');
 import products from './products/products-list.js';
 import buildElement from './utils/element-builder.js';

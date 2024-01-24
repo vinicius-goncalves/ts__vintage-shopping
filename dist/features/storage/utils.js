@@ -14,8 +14,11 @@ function isProduct(product) {
 }
 function startTransaction(db, options) {
     const transaction = db.transaction(options.objectStoreName, options.mode);
-    transaction.addEventListener('complete', (event) => {
-        console.log('Transaction completed', event.timeStamp.toString().concat('ms'));
+    const p0 = performance.now();
+    transaction.addEventListener('complete', () => {
+        const p1 = performance.now();
+        const transactionSeconds = (p1 - p0).toFixed(2);
+        console.log('Transaction completed: %s', transactionSeconds.concat('ms'));
     });
     const objectStore = transaction.objectStore(options.objectStoreName);
     return objectStore;

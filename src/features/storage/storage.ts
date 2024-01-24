@@ -1,9 +1,7 @@
-import DBMethods from './DBMethods.js';
-
 const DB_NAME: string = 'cart';
 const DB_VERSION: number = 1;
 
-const dbRequest = indexedDB.open(DB_NAME, DB_VERSION);
+const dbRequest: IDBOpenDBRequest = indexedDB.open(DB_NAME, DB_VERSION);
 
 dbRequest.addEventListener('upgradeneeded', (event: IDBVersionChangeEvent) => {
 

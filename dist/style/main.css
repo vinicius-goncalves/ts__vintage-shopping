@@ -1,50 +1,5 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-@font-face {
-    src: url('../assets/fonts/showguide.TTF');
-    font-family: 'showguide';
-}
-
-@font-face {
-    src: url('../assets/fonts/stengkol.otf');
-    font-family: 'stengkol';
-}
-
-@font-face {
-    src: url('../assets/fonts/cowboys.otf');
-    font-family: 'cowboys';
-}
-
-@font-face {
-    src: url('../assets/fonts/monofonto.otf');
-    font-family: 'monofonto';
-}
-
-@font-face {
-    src: url('../assets/fonts/kgredhands.ttf');
-    font-family: 'kgredhands';
-}
-
-@font-face {
-    src: url('../assets/fonts/western.ttf');
-    font-family: 'western';
-}
-
-@font-face {
-    src: url('../assets/fonts/de_louisville.otf');
-    font-family: 'louisville';
-}
-
-@font-face {
-    src: url('../assets/fonts/duality.otf');
-    font-family: 'duality';
-}
-
-@font-face {
-    src: url('../assets/fonts/edmunds.otf');
-    font-family: 'edmunds';
-}
-
 body { margin: 5px; }
 
 header {
@@ -92,88 +47,88 @@ header {
 }
 
 main {
+
     width: 100%;
-}
 
-main div.categories {
-
-    display: flex;
-    flex-direction: column;
-    border: 5px solid #2B2B2B;
-    margin: 5px 0;
-    padding: 15px;
-
-    & div {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 50px;
-    }
-
-    & article {
-
+    & div.categories {
+        display: flex;
+        flex-direction: column;
+        border: 5px solid #2B2B2B;
         margin: 5px 0;
-        position: relative;
+        padding: 15px;
 
-        & hgroup {
-            color: #212121;
-            max-width: 50%;
-            padding: 5px;
+        & div {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
         }
 
-        & h2 {
+        & article {
+
+            margin: 5px 0;
+            position: relative;
+
+            & hgroup {
+                color: #212121;
+                max-width: 50%;
+                padding: 5px;
+            }
+
+            & h2 {
+                font-family: 'monofonto', serif;
+                font-size: 1.6rem;
+                text-transform: uppercase;
+                letter-spacing: -1px;
+                color: #1c1c1c;
+            }
+
+            & p {
+                font-family: 'Times New Roman', Times, serif;
+                font-weight: normal;
+                color: #535a5a;
+            }
+
+            & img {
+                filter: grayscale(1);
+                width: 124px;
+                position: absolute;
+                right: 0;
+                bottom: 50px;
+                z-index: -1;
+            }
+
+            & figcaption {
+                text-align: right;
+                font-size: 2.5rem;
+                font-family: 'duality';
+                color: #BA4642;
+                letter-spacing: 2px;
+            }
+        }
+
+        & article:hover::after {
+            background: url('../assets/images/asterisk.png');
+            background-size: 45px;
+            width: 45px;
+            height: 45px;
+            display: inline-block;
+            content: "";
+            transform: rotate(-1.3rad);
+            position: absolute;
+            top: 5px;
+            right: 25px;
+        }
+
+        & article:hover {
+            cursor: pointer;
+        }
+
+        & .category-title {
             font-family: 'monofonto', serif;
-            font-size: 1.6rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
             letter-spacing: -1px;
-            color: #1c1c1c;
         }
-
-        & p {
-            font-family: 'Times New Roman', Times, serif;
-            font-weight: normal;
-            color: #535a5a;
-        }
-
-        & img {
-            filter: grayscale(1);
-            width: 124px;
-            position: absolute;
-            right: 0;
-            bottom: 50px;
-            z-index: -1;
-        }
-
-        & figcaption {
-            text-align: right;
-            font-size: 2.5rem;
-            font-family: 'duality';
-            color: #BA4642;
-            letter-spacing: 2px;
-        }
-    }
-
-    & article:hover::after {
-        background: url('../assets/images/asterisk.png');
-        background-size: 45px;
-        width: 45px;
-        height: 45px;
-        display: inline-block;
-        content: "";
-        transform: rotate(-1.3rad);
-        position: absolute;
-        top: 5px;
-        right: 25px;
-    }
-
-    & article:hover {
-        cursor: pointer;
-    }
-
-    & .category-title {
-        font-family: 'monofonto', serif;
-        font-size: 2.5rem;
-        text-transform: uppercase;
-        letter-spacing: -1px;
     }
 }
 
@@ -187,9 +142,3 @@ footer {
     letter-spacing: 3px;
     font-weight: normal;
 }
-
-/* .toast {
-    border: 1px solid black;
-    margin: 5px;
-    padding: 5px;
-} */

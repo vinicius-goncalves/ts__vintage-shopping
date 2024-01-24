@@ -5,15 +5,17 @@ interface Toast {
     body: string;
 }
 
+const MAX_TOASTS = 5;
+const MAX_MILLISECONDS_DURATION = 2000;
+
 const toastsCreated: Array<Element> = [];
 const toastsContainer = document.querySelector('[data-temp="toasts-container"]') as HTMLDivElement;
+const toastSent: CustomEvent = new CustomEvent('toastsent');
 
-const toastSent = new CustomEvent('toastsent');
-
-function createToast(toast: Toast) {
+function createToast(toast: Toast): HTMLElement {
 
     const toastWrapper = buildElement('aside')
-        .setCustomAttribute('class', 'toast')
+        .addClasses('toast', 'active')
         .build();
 
     const toastTitle = buildElement('h2')
@@ -36,13 +38,17 @@ function createToast(toast: Toast) {
 function sendToast(toast: Toast): void {
 
     const newToast: HTMLElement = createToast(toast);
-    newToast.classList.toggle('active');
 
     toastsContainer.append(newToast);
     toastsContainer.dispatchEvent(toastSent);
 }
 
-window.addEventListener('DOMContentLoaded', () => {
+function removeOldestToast(): void {
+    const oldestToast = toastsCreated.shift();
+    oldestToast?.remove();
+}
+
+window.addEventListener('DOMContentLoaded', (): void => {
 
     if(!toastsContainer) {
         return;
@@ -50,15 +56,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     toastsContainer.addEventListener('toastsent', (): void => {
 
+        if(toastsCreated.length >= MAX_TOASTS) {
+            removeOldestToast();
+        }
+
         setTimeout(() => {
-
-            const oldestToast = toastsCreated.shift();
-            oldestToast?.remove();
-            toastsCreated.slice(0, 1);
-
-        }, toastsCreated.length * 2000);
+            removeOldestToast();
+        }, toastsCreated.length * MAX_MILLISECONDS_DURATION);
     });
-
-})
+});
 
 export default sendToast;

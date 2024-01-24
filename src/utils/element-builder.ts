@@ -1,4 +1,5 @@
 interface ElementBuilder<T extends keyof HTMLElementTagNameMap = any> {
+    addClasses(...classes: string[]): ElementBuilder<T>;
     setAttribute<K extends keyof HTMLElementTagNameMap[T] & string>(
         name: K,
         value: string
@@ -6,7 +7,7 @@ interface ElementBuilder<T extends keyof HTMLElementTagNameMap = any> {
     setCustomAttribute(name: string, value: string): ElementBuilder<T>;
     setText(text: Text | string): ElementBuilder<T>;
     addAttributes(attributes: { [name: string]: string }): ElementBuilder<T>;
-    append(child: HTMLElement): ElementBuilder<T>;
+    append(...children: HTMLElement[]): ElementBuilder<T>;
     appendOn(target: HTMLElement): ElementBuilder<T>;
     on(event: keyof GlobalEventHandlersEventMap, callback: (...args: any[]) => void): ElementBuilder<T>;
     build(): HTMLElementTagNameMap[T];
@@ -17,6 +18,10 @@ function buildElement<T extends keyof HTMLElementTagNameMap>(element: T & string
     const el = document.createElement(element) as HTMLElementTagNameMap[T];
 
     return {
+        addClasses(...classes) {
+            el.classList.add(...classes);
+            return this;
+        },
         setAttribute<K extends keyof HTMLElementTagNameMap[T]>(name: K, value: string): ElementBuilder<T> {
             el.setAttribute(name as string, value);
             return this;
@@ -41,8 +46,8 @@ function buildElement<T extends keyof HTMLElementTagNameMap>(element: T & string
             }
             return this;
         },
-        append(child: HTMLElement): ElementBuilder<T> {
-            el.appendChild(child);
+        append(...children: HTMLElement[]): ElementBuilder<T> {
+            el.append(...children);
             return this;
         },
         appendOn(target: HTMLElement): ElementBuilder<T> {

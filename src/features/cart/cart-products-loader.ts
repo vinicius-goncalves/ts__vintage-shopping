@@ -1,14 +1,16 @@
+// import CartMethods from './CartMethods.js';
+// const cm = new CartMethods();
+
+import('../../fonts/loader.js');
+import('./cart-observer.js');
+
 import Product from '../../products/interfaces/Product.js';
 import buildElement from '../../utils/element-builder.js';
-import DBMethods from '../storage/DBMethods.js';
 import CartMethods from './CartMethods.js';
 
-const db = new DBMethods();
-const addedProductsContainer = document.querySelector('section[data-cart="added-products-container"]') as HTMLElement;
-const totalAddedProducts = document.querySelector('span[data-cart="total-added-products"') as HTMLSpanElement;
-const DOMtotalPrice = document.querySelector('span[data-cart-product="price"]') as HTMLSpanElement;
-
 const cm = new CartMethods();
+
+const addedProductsContainer = document.querySelector('section[data-cart="cart-products"]') as HTMLElement;
 
 function renderCartProduct(product: Product) {
 
@@ -56,57 +58,8 @@ function renderCartProduct(product: Product) {
     return productWrapper;
 }
 
-function loadProducts() {
-
-   db.getAllProducts().then(query => {
-
-        if(!query) {
-            return;
-        }
-
-        if(!Array.isArray(query.data)) {
-            return;
-        }
-
-        const docFragment: DocumentFragment = document.createDocumentFragment();
-
-        for(const product of query.data) {
-            const productRendered: HTMLDivElement = renderCartProduct(product);
-            docFragment.appendChild(productRendered);
-        }
-
-        addedProductsContainer.appendChild(docFragment);
-    });
-}
-
-async function updateProductsAdded() {
-    const { count } = await db.countAddedProducts();
-    totalAddedProducts.textContent = String(count);
-}
-
-async function updatePrice() {
-
-    const products = await db.getAllProducts();
-
-    if(!products) {
-        return;
-    }
-
-    const { data } = products;
-
-    if(!Array.isArray(data)) {
-        return;
-    }
-
-    const totalPrice = data.reduce((acc: number, product: Product): number => {
-        return acc += Number(product.price);
-    }, 0);
-
-    DOMtotalPrice.textContent = `$${totalPrice.toFixed(2)}`
-}
+export default renderCartProduct;
 
 window.addEventListener('DOMContentLoaded', () => {
-    loadProducts();
-    updateProductsAdded();
-    updatePrice();
+    cm.loadProducts(addedProductsContainer);
 });

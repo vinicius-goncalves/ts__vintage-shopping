@@ -1,3 +1,4 @@
+import('./fonts/loader.js');
 import('./features/storage/storage.js');
 
 import DBMethods from './features/storage/DBMethods.js';

@@ -1,6 +1,10 @@
 function buildElement(element) {
     const el = document.createElement(element);
     return {
+        addClasses(...classes) {
+            el.classList.add(...classes);
+            return this;
+        },
         setAttribute(name, value) {
             el.setAttribute(name, value);
             return this;
@@ -23,8 +27,8 @@ function buildElement(element) {
             }
             return this;
         },
-        append(child) {
-            el.appendChild(child);
+        append(...children) {
+            el.append(...children);
             return this;
         },
         appendOn(target) {

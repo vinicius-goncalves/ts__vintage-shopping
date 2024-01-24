@@ -1,29 +1,23 @@
-"use strict";
-const fc = new FontFace('showguide', "url('../dist/assets/fonts/showguide.TTF')", { display: 'auto' });
-document.fonts.add(fc);
-fc.load().then(font => {
-    console.log(font);
-});
-// document.fonts.addEventListener('loading', (event) => {
-//     // console.log(event);
-// });
-// const xhr = new XMLHttpRequest();
-// xhr.addEventListener('load', async () => {
-//     const blob = xhr.response as Blob;
-//     const fc = new FontFace('showguide', await blob.arrayBuffer());
-//     document.fonts.add(fc);
-//     const res = document.fonts.has(fc);
-//     console.log(res)    // fc.load().then(() => {
-//     //     console.log('a')
-//     // })
-//     // fc.load().then(res => {
-//     //      document.fonts.load(res.family).then(res => {
-//     //         console.log(res)
-//     //      })
-//     // })
-//     // fc.load().then(() => console.log('a'))
-// });
-// xhr.responseType = 'blob';
-// xhr.open('GET', '../dist/assets/fonts/showguide.TTF');
-// xhr.send();
-// // const fc = new FontFace('showguide', )
+const BASE_URL = '/dist/assets/fonts';
+const fonts = [
+    { name: 'showguide', src: `url('${BASE_URL}/showguide.ttf')` },
+    { name: 'monofonto', src: `url('${BASE_URL}/monofonto.otf')` },
+    { name: 'stengkol', src: `url('${BASE_URL}/stengkol.otf')` },
+    { name: 'duality', src: `url('${BASE_URL}/duality.otf')` },
+];
+function createFontFace(font) {
+    const fcOptions = {
+        style: 'normal',
+        weight: '500'
+    };
+    const fc = new FontFace(font.name, font.src, fcOptions);
+    return fc;
+}
+function loadFontFace(font) {
+    const fc = createFontFace(font);
+    document.fonts.add(fc);
+    const hasFontFace = document.fonts.has(fc);
+    return hasFontFace;
+}
+fonts.forEach(font => loadFontFace(font));
+export default {};
