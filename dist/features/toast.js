@@ -1,4 +1,4 @@
-import buildElement from '../utils/element-builder.js';
+import { buildElement } from '../utils/utils.js';
 const MAX_TOASTS = 5;
 const MAX_MILLISECONDS_DURATION = 2000;
 const toastsCreated = [];

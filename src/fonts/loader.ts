@@ -1,15 +1,18 @@
-interface Font {
-    name: string;
-    src: string;
-}
-
 const BASE_URL: string = '/dist/assets/fonts';
 
+class Font {
+
+    constructor(public name: string, public src: string) {
+        this.name = name;
+        this.src = src;
+    }
+}
+
 const fonts: Array<Font> = [
-    { name: 'showguide', src: `url('${BASE_URL}/showguide.ttf')`},
-    { name: 'monofonto', src: `url('${BASE_URL}/monofonto.otf')`},
-    { name: 'stengkol', src: `url('${BASE_URL}/stengkol.otf')` },
-    { name: 'duality', src: `url('${BASE_URL}/duality.otf')` },
+    new Font('showguide', `url('${BASE_URL}/showguide.ttf')`),
+    new Font('monofonto', `url('${BASE_URL}/monofonto.otf')`),
+    new Font('stengkol', `url('${BASE_URL}/stengkol.otf')`),
+    new Font('duality', `url('${BASE_URL}/duality.otf')`)
 ];
 
 function createFontFace(font: Font): FontFace {
@@ -19,19 +22,25 @@ function createFontFace(font: Font): FontFace {
         weight: '500'
     };
 
-    const fc = new FontFace(font.name, font.src, fcOptions);
+    const fc: FontFace = new FontFace(font.name, font.src, fcOptions);
+
     return fc;
 }
 
 function loadFontFace(font: Font): boolean {
 
-    const fc = createFontFace(font);
-    document.fonts.add(fc);
+    const fc: FontFace = createFontFace(font);
 
-    const hasFontFace = document.fonts.has(fc);
+    try {
+        document.fonts.add(fc);
+    } catch(err: unknown) {
+        console.log(err);
+    }
+
+    const hasFontFace: boolean = document.fonts.has(fc);
     return hasFontFace;
 }
 
-fonts.forEach(font => loadFontFace(font));
+fonts.forEach((font: Font): boolean => loadFontFace(font));
 
 export default {};

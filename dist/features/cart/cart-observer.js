@@ -1,4 +1,4 @@
-import CartMethods from "./CartMethods.js";
+import CartMethods from './cart-methods.js';
 const addedProductsContainer = document.querySelector('section[data-cart="cart-products"]');
 const cm = new CartMethods();
 async function handleCartMutation(mutation) {
@@ -6,7 +6,7 @@ async function handleCartMutation(mutation) {
     if (!hasRemovedCartProducts) {
         return;
     }
-    await Promise.all([cm.updateProductsCount(), cm.updateTotalPrice(), cm.updateCartText()]);
+    await cm.updateCart();
 }
 const observer = new MutationObserver(mutations => mutations.forEach(handleCartMutation));
 observer.observe(addedProductsContainer, { childList: true });

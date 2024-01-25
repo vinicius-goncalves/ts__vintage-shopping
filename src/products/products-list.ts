@@ -1,5 +1,6 @@
-import { Categories } from './interfaces/Category.js';
-import type Product from './interfaces/Product.js';
+import type Product from '../types/interfaces/IProduct.js';
+
+import { Categories } from '../types/interfaces/ICategory.js';
 
 function generateRandomPrice(): string {
     return (Math.random() * (9.99 - 0.99) + 0.99).toFixed(2).padStart(2, '0');

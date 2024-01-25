@@ -3,7 +3,7 @@
 import('../../fonts/loader.js');
 import('./cart-observer.js');
 import buildElement from '../../utils/element-builder.js';
-import CartMethods from './CartMethods.js';
+import CartMethods from './cart-methods.js';
 const cm = new CartMethods();
 const addedProductsContainer = document.querySelector('section[data-cart="cart-products"]');
 function renderCartProduct(product) {

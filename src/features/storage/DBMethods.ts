@@ -1,6 +1,6 @@
 import('./storage.js');
 
-import type Product from '../../products/interfaces/Product.js';
+import type Product from '../../types/interfaces/IProduct.js';
 
 import { getDB } from './storage.js';
 import { startTransaction, isProduct, findProductById } from './utils.js'

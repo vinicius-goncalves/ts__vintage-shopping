@@ -1,4 +1,4 @@
-import CartMethods from "./CartMethods.js";
+import CartMethods from './cart-methods.js';
 
 const addedProductsContainer = document.querySelector('section[data-cart="cart-products"]') as HTMLElement;
 const cm: CartMethods = new CartMethods();
@@ -11,7 +11,7 @@ async function handleCartMutation(mutation: MutationRecord): Promise<void> {
         return;
     }
 
-    await Promise.all([ cm.updateProductsCount(), cm.updateTotalPrice(), cm.updateCartText() ]);
+    await cm.updateCart();
 }
 
 const observer: MutationObserver = new MutationObserver(mutations => mutations.forEach(handleCartMutation));

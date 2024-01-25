@@ -1,9 +1,19 @@
 const BASE_URL = '/dist/assets/fonts';
+class Font {
+    name;
+    src;
+    constructor(name, src) {
+        this.name = name;
+        this.src = src;
+        this.name = name;
+        this.src = src;
+    }
+}
 const fonts = [
-    { name: 'showguide', src: `url('${BASE_URL}/showguide.ttf')` },
-    { name: 'monofonto', src: `url('${BASE_URL}/monofonto.otf')` },
-    { name: 'stengkol', src: `url('${BASE_URL}/stengkol.otf')` },
-    { name: 'duality', src: `url('${BASE_URL}/duality.otf')` },
+    new Font('showguide', `url('${BASE_URL}/showguide.ttf')`),
+    new Font('monofonto', `url('${BASE_URL}/monofonto.otf')`),
+    new Font('stengkol', `url('${BASE_URL}/stengkol.otf')`),
+    new Font('duality', `url('${BASE_URL}/duality.otf')`)
 ];
 function createFontFace(font) {
     const fcOptions = {
@@ -15,9 +25,14 @@ function createFontFace(font) {
 }
 function loadFontFace(font) {
     const fc = createFontFace(font);
-    document.fonts.add(fc);
+    try {
+        document.fonts.add(fc);
+    }
+    catch (err) {
+        console.log(err);
+    }
     const hasFontFace = document.fonts.has(fc);
     return hasFontFace;
 }
-fonts.forEach(font => loadFontFace(font));
+fonts.forEach((font) => loadFontFace(font));
 export default {};

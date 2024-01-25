@@ -1,4 +1,4 @@
-import Product from '../../products/interfaces/Product.js';
+import Product from '../../types/interfaces/IProduct.js';
 import products from '../../products/products-list.js';
 
 function flatProducts(): Array<Product> {

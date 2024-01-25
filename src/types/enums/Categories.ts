@@ -4,9 +4,4 @@ enum Categories {
     BAKERY = 'Bakery',
 }
 
-interface Category {
-    id: string | number;
-    type: Categories;
-}
-
-export { Categories, Category };
+export default Categories;
