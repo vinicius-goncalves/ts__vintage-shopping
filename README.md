@@ -23,4 +23,6 @@ Clone this repository using `git clone https://github.com/vinicius-goncalves/vin
 # Try it out
 You also have the option to try it out by clicking this link: [https://vintage-shopping.vinicius-goncalves.com/](https://vintage-shopping.vinicius-goncalves.com/).
 
+---
+
 Thanks for reading this README.
