@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'showguide';
-    src: url('../assets/fonts/showguide.ttf');
+    src: url('/dist/assets/fonts/showguide.ttf');
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
