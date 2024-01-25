@@ -1,4 +1,4 @@
-const BASE_URL = '/dist/assets/fonts';
+const BASE_URL = '../../dist/assets/fonts';
 class Font {
     name;
     src;
