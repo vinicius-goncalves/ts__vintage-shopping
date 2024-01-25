@@ -9,7 +9,7 @@ class Font {
 }
 
 const fonts: Array<Font> = [
-    new Font('showguide', `url('${BASE_URL}/showguide.ttf')`),
+    // new Font('showguide', `url('${BASE_URL}/showguide.ttf')`),
     new Font('monofonto', `url('${BASE_URL}/monofonto.otf')`),
     new Font('stengkol', `url('${BASE_URL}/stengkol.otf')`),
     new Font('duality', `url('${BASE_URL}/duality.otf')`)
