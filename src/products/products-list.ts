@@ -13,28 +13,28 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             name: 'Canned Vitamin',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: generateRandomPrice(),
-            image_src: 'assets/images/products/CANNED_GOODS/CANNED_GOODS-1.png'
+            image_src: 'assets/images/products/canned_goods/canned_goods-1.png'
         },
         {
             id: 2,
             name: 'Canned Meat',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/CANNED_GOODS/CANNED_GOODS-2.png'
+            image_src: 'assets/images/products/canned_goods/canned_goods-2.png'
         },
         {
             id: 3,
             name: 'Canned Chicken',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/CANNED_GOODS/CANNED_GOODS-3.png'
+            image_src: 'assets/images/products/canned_goods/canned_goods-3.png'
         },
         {
             id: 4,
             name: 'Tomato Sauce',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/CANNED_GOODS/CANNED_GOODS-4.png'
+            image_src: 'assets/images/products/canned_goods/canned_goods-4.png'
         }
     ],
     BAKERY: [
@@ -43,35 +43,35 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             name: 'Crackers',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BAKERY/BAKERY-1.png'
+            image_src: 'assets/images/products/bakery/bakery-1.png'
         },
         {
             id: 6,
             name: 'Large Biscuits',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BAKERY/BAKERY-2.png'
+            image_src: 'assets/images/products/bakery/bakery-2.png'
         },
         {
             id: 7,
             name: 'Biscuits',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BAKERY/BAKERY-3.png'
+            image_src: 'assets/images/products/bakery/bakery-3.png'
         },
         {
             id: 8,
             name: 'Potato Chips',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BAKERY/BAKERY-4.png'
+            image_src: 'assets/images/products/bakery/bakery-4.png'
         },
         {
             id: 9,
             name: 'Ham Sandwich',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BAKERY/BAKERY-5.png'
+            image_src: 'assets/images/products/bakery/bakery-5.png'
         },
         {
 
@@ -79,7 +79,7 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             name: 'Donuts',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BAKERY/BAKERY-6.png'
+            image_src: 'assets/images/products/bakery/bakery-6.png'
         }
     ],
     BEVERAGES: [
@@ -89,7 +89,7 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             name: 'Lemon Soda',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BEVERAGES/BEVERAGES-1.png'
+            image_src: 'assets/images/products/beverages/beverages-1.png'
         },
         {
 
@@ -97,7 +97,7 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             name: 'Orange Soda',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BEVERAGES/BEVERAGES-2.png'
+            image_src: 'assets/images/products/beverages/beverages-2.png'
         },
         {
 
@@ -105,7 +105,7 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             name: 'Coca Cola',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BEVERAGES/BEVERAGES-3.png'
+            image_src: 'assets/images/products/beverages/beverages-3.png'
         },
         {
 
@@ -113,7 +113,7 @@ const products: Record<keyof typeof Categories, Array<Product>> = {
             name: 'Beer',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!',
             price: `${generateRandomPrice()}`,
-            image_src: 'assets/images/products/BEVERAGES/BEVERAGES-4.png'
+            image_src: 'assets/images/products/beverages/beverages-4.png'
         }
     ]
 };
