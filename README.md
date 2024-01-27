@@ -17,6 +17,8 @@
 # Introduction
 The main focus of this project is the game’s cart system. I decided to create this, after playing `Red Dead Redemption 2`, being more specific, because of the game’s general stores system that uses a 'book' to buy items in-game.
 
+It's just a cart system, with product prices being generated randomly on the home page. Once adding a product is added the cart, that price becomes the 'final price', unless the product is removed later and added again with the currenct price at that moment.
+
 # How to use
 Clone this repository using `git clone https://github.com/vinicius-goncalves/vintage-shopping.git` and then, start using the Live Server plugin for VS Code, and then access the `index.html` file, or just open the `index.html` file directly.
 
