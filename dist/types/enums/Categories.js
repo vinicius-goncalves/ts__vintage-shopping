@@ -4,4 +4,4 @@ var Categories;
     Categories["BEVERAGES"] = "Beverages";
     Categories["BAKERY"] = "Bakery";
 })(Categories || (Categories = {}));
-export { Categories };
+export default Categories;

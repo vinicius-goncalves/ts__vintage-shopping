@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'showguide';
+    src: url('./../assets/fonts/showguide.ttf');
+}
+
+@font-face {
+    font-family: 'duality';
+    src: url('./../assets/fonts/duality.otf');
+}
+
+@font-face {
+    font-family: 'monofonto';
+    src: url('./../assets/fonts/monofonto.otf');
+}
+
+@font-face {
+    font-family: 'stengkol';
+    src: url('./../assets/fonts/stengkol.otf');
+}

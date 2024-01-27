@@ -1,4 +1,3 @@
-import('../../fonts/loader.js');
 import('./cart-observer.js');
 
 import CartMethods from './cart-methods.js';

@@ -1,4 +1,3 @@
-import('./fonts/loader.js');
 import('./features/storage/storage.js');
 
 import type Product from './types/interfaces/IProduct.js';

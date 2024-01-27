@@ -1,4 +1,3 @@
-import('./fonts/loader.js');
 import('./features/storage/storage.js');
 import ProductsMethods from './products/products-methods.js';
 const productsMain = document.querySelector('[data-products="main"]');
