@@ -19,6 +19,8 @@ The main focus of this project is the inspiration in a game’s cart system, and
 
 It's just a cart system, with product prices being generated randomly on the home page. Once adding a product is added the cart, that price becomes the 'final price', unless the product is removed later and added again with the currenct price at that moment.
 
+It's just a cart system, with product prices being generated randomly on the home page. Once adding a product is added the cart, that price becomes the 'final price', unless the product is removed later and added again with the currenct price at that moment.
+
 # How to use
 First of all, you can clone this repository using the follow cmd: 
 
