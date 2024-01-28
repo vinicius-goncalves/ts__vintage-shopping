@@ -1,8 +1,8 @@
-import { buildElement, removeDOMElement } from '../../utils/utils.js';
-import DBMethods from '../storage/DBMethods.js';
-import sendToast from '../toast.js';
+import { buildElement, removeDOMElement } from '../utils/utils.js';
+import DBMethods from '../features/storage/DBMethods.js';
+import sendToast from '../features/toast.js';
 const totalPrice = document.querySelector('span[data-cart-product="price"]');
-const emptyCartText = document.querySelector('p[data-cart="empty-cart-text"]');
+const cartTextInformation = document.querySelector('p[data-cart="information"]');
 const db = new DBMethods();
 class CartMethods {
     addProductIntoCart(product) {
@@ -33,9 +33,10 @@ class CartMethods {
         const { count } = await db.countAddedProducts();
         totalAddedProducts.textContent = String(count);
     }
-    async updateCartText() {
+    async updateCartTextInformation() {
         const isCartEmpty = await this.isCartEmpty();
-        emptyCartText.style.setProperty('display', isCartEmpty ? 'block' : 'none');
+        cartTextInformation.style.setProperty('display', isCartEmpty ? 'block' : 'none');
+        cartTextInformation.textContent = isCartEmpty ? 'Your cart is empty.' : '';
     }
     renderCartProduct(product) {
         const productWrapper = buildElement('div')
@@ -74,7 +75,7 @@ class CartMethods {
         return productWrapper;
     }
     async updateCart() {
-        await Promise.all([this.updateCartText(), this.updateProductsCount(), this.updateTotalPrice()]);
+        await Promise.all([this.updateCartTextInformation(), this.updateProductsCount(), this.updateTotalPrice()]);
     }
     async loadProducts(container) {
         const allProducts = await db.getAllProducts();

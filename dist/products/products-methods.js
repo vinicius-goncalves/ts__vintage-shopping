@@ -1,5 +1,5 @@
 import { buildElement } from '../utils/utils.js';
-import CartMethods from '../features/cart/cart-methods.js';
+import CartMethods from '../cart/cart-methods.js';
 import products from '../products/products-list.js';
 const cm = new CartMethods();
 class ProductsMethods {

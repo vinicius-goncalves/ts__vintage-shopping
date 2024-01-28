@@ -6,7 +6,7 @@ interface ICartMethods {
     isCartEmpty(): Promise<boolean>;
     updateTotalPrice(): Promise<void>;
     updateProductsCount(): Promise<void>;
-    updateCartText(): Promise<void>;
+    updateCartTextInformation(): Promise<void>;
     renderCartProduct(product: Product): HTMLDivElement;
     updateCart(): Promise<void>;
     loadProducts(container: Element): Promise<void>;

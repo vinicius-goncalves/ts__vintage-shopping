@@ -59,7 +59,7 @@ main {
     width: 100%;
 }
 
-p[data-cart="empty-cart-text"] {
+p[data-cart="information"] {
     font-size: 2rem;
     font-family: 'monofonto';
 }

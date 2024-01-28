@@ -3,7 +3,7 @@ import type DocFragment from '../types/DocFragment.js';
 import type CategoryName from '../types/CategoryName.js';
 
 import { buildElement } from '../utils/utils.js';
-import CartMethods from '../features/cart/cart-methods.js';
+import CartMethods from '../cart/cart-methods.js';
 import products from '../products/products-list.js';
 import IProductsMethods from '../types/interfaces/IProductsMethods.js';
 

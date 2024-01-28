@@ -1,13 +1,13 @@
-import type Product from '../../types/interfaces/IProduct.js';
-import type ICartMethods from '../../types/interfaces/ICartMethods.js';
+import type Product from '../types/interfaces/IProduct.js';
+import type ICartMethods from '../types/interfaces/ICartMethods.js';
 
-import { buildElement, removeDOMElement } from '../../utils/utils.js';
+import { buildElement, removeDOMElement } from '../utils/utils.js';
 
-import DBMethods from '../storage/DBMethods.js';
-import sendToast from '../toast.js';
+import DBMethods from '../features/storage/DBMethods.js';
+import sendToast from '../features/toast.js';
 
 const totalPrice = document.querySelector('span[data-cart-product="price"]') as HTMLSpanElement;
-const emptyCartText = document.querySelector('p[data-cart="empty-cart-text"]') as HTMLParagraphElement;
+const cartTextInformation = document.querySelector('p[data-cart="information"]') as HTMLParagraphElement;
 
 const db: DBMethods = new DBMethods();
 
@@ -52,9 +52,12 @@ class CartMethods implements ICartMethods {
         totalAddedProducts.textContent = String(count);
     }
 
-    async updateCartText(): Promise<void> {
+    async updateCartTextInformation(): Promise<void> {
+
         const isCartEmpty: Awaited<boolean> = await this.isCartEmpty();
-        emptyCartText.style.setProperty('display', isCartEmpty ? 'block' : 'none');
+
+        cartTextInformation.style.setProperty('display', isCartEmpty ? 'block' : 'none');
+        cartTextInformation.textContent = isCartEmpty ? 'Your cart is empty.' : '';
     }
 
     renderCartProduct(product: Product): HTMLDivElement {
@@ -104,7 +107,7 @@ class CartMethods implements ICartMethods {
     }
 
     async updateCart(): Promise<void> {
-        await Promise.all([ this.updateCartText(), this.updateProductsCount(), this.updateTotalPrice() ]);
+        await Promise.all([ this.updateCartTextInformation(), this.updateProductsCount(), this.updateTotalPrice() ]);
     }
 
     async loadProducts(container: Element): Promise<void> {
