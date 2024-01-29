@@ -39,7 +39,6 @@ class ProductsMethods {
             .appendOn(hgroup)
             .build();
         const img = await cache.createBlobURL(product.image_src);
-        console.log(img);
         const productImg = buildElement('img')
             .setAttribute('src', img)
             .build();

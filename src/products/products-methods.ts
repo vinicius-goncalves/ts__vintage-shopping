@@ -58,7 +58,6 @@ class ProductsMethods implements IProductsMethods {
                 .build();
 
             const img = await cache.createBlobURL(product.image_src) as string;
-            console.log(img)
 
             const productImg: HTMLImageElement = buildElement('img')
                 .setAttribute('src', img)
