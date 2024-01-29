@@ -52,9 +52,4 @@ class CacheMethods {
     }
 }
 
-// const c = new CacheMethods();
-// const a = await c.add('/images/bakery/bakery-1.png', './assets/images/products/bakery/bakery-1.png', true);
-
-// c.getAsBlob('/images/bakery/bakery-1.png').then(blob => blob && console.log(URL.createObjectURL(blob)));
-
 export default CacheMethods;
