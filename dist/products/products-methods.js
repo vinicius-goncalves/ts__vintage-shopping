@@ -1,7 +1,9 @@
 import { buildElement } from '../utils/utils.js';
 import CartMethods from '../cart/cart-methods.js';
 import products from '../products/products-list.js';
+import CacheMethods from '../features/cache/cache-methods.js';
 const cm = new CartMethods();
+const cache = new CacheMethods();
 class ProductsMethods {
     renderCategory(category) {
         const removeUnderlineRegExp = /_/g;
@@ -19,7 +21,7 @@ class ProductsMethods {
             .build();
         return div;
     }
-    renderProduct(product, type) {
+    async renderProduct(product, type) {
         const productContainer = buildElement('article')
             .setCustomAttribute('data-product-type', type)
             .setCustomAttribute('data-product-id', product.id)
@@ -36,8 +38,10 @@ class ProductsMethods {
             .setText('Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, consequatur laboriosam odio laborum nobis inventore!')
             .appendOn(hgroup)
             .build();
+        const img = await cache.createBlobURL(product.image_src);
+        console.log(img);
         const productImg = buildElement('img')
-            .setAttribute('src', product.image_src)
+            .setAttribute('src', img)
             .build();
         const figure = buildElement('figure')
             .append(productImg)
@@ -54,8 +58,8 @@ class ProductsMethods {
         for (const [categoryName, productsList] of Object.entries(products)) {
             const category = this.renderCategory(categoryName);
             const productContainer = category.querySelector('div');
-            productsList.forEach((product) => {
-                const productRendered = this.renderProduct(product, categoryName);
+            productsList.forEach(async (product) => {
+                const productRendered = await this.renderProduct(product, categoryName);
                 productContainer.appendChild(productRendered);
             });
             docFragment.appendChild(category);

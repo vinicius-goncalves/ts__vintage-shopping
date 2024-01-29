@@ -1,4 +1,5 @@
 import('./features/storage/storage.js');
+import('./products/index.js');
 
 import type Product from './types/interfaces/IProduct.js';
 import type DocFragment from './types/DocFragment.js';
@@ -12,4 +13,5 @@ window.addEventListener('DOMContentLoaded', (): void => {
 
     const productsDocFragment: DocFragment<Product[]> = pm.loadProducts();
     productsMain.appendChild(productsDocFragment);
+
 });

@@ -1,4 +1,5 @@
 import('./features/storage/storage.js');
+import('./products/index.js');
 import ProductsMethods from './products/products-methods.js';
 const productsMain = document.querySelector('[data-products="main"]');
 const pm = new ProductsMethods();

@@ -7,7 +7,7 @@ interface ICartMethods {
     updateTotalPrice(): Promise<void>;
     updateProductsCount(): Promise<void>;
     updateCartTextInformation(): Promise<void>;
-    renderCartProduct(product: Product): HTMLDivElement;
+    renderCartProduct(product: Product): Promise<HTMLDivElement>;
     updateCart(): Promise<void>;
     loadProducts(container: Element): Promise<void>;
 }

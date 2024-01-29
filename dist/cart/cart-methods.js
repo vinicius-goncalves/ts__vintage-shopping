@@ -1,9 +1,15 @@
+// import CacheMethods from '../features/cache/cache-methods.js';
 import { buildElement, removeDOMElement } from '../utils/utils.js';
+import CacheMethods from '../features/cache/cache-methods.js';
 import DBMethods from '../features/storage/DBMethods.js';
 import sendToast from '../features/toast.js';
 const totalPrice = document.querySelector('span[data-cart-product="price"]');
 const cartTextInformation = document.querySelector('p[data-cart="information"]');
 const db = new DBMethods();
+const cache = new CacheMethods();
+// caches.open('data').then(c => {
+//     c.keys().then(a => console.log(a))
+// })
 class CartMethods {
     addProductIntoCart(product) {
         db.addProduct(product)
@@ -38,7 +44,7 @@ class CartMethods {
         cartTextInformation.style.setProperty('display', isCartEmpty ? 'block' : 'none');
         cartTextInformation.textContent = isCartEmpty ? 'Your cart is empty.' : '';
     }
-    renderCartProduct(product) {
+    async renderCartProduct(product) {
         const productWrapper = buildElement('div')
             .setCustomAttribute('data-cart', 'product')
             .setCustomAttribute('data-product-id', product.id)
@@ -46,8 +52,9 @@ class CartMethods {
         const productDetails = buildElement('figure')
             .setCustomAttribute('data-cart-product', 'details')
             .build();
+        const img = await cache.createBlobURL(`../${product.image_src}`);
         buildElement('img')
-            .setAttribute('src', `../${product.image_src}`)
+            .setAttribute('src', img)
             .setCustomAttribute('data-cart-product', 'img')
             .appendOn(productDetails)
             .build();
@@ -84,7 +91,7 @@ class CartMethods {
         }
         const docFragment = document.createDocumentFragment();
         for (const product of allProducts.data) {
-            const productRendered = this.renderCartProduct(product);
+            const productRendered = await this.renderCartProduct(product);
             docFragment.appendChild(productRendered);
         }
         container.appendChild(docFragment);

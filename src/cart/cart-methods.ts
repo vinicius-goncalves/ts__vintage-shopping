@@ -1,8 +1,11 @@
+// import CacheMethods from '../features/cache/cache-methods.js';
+
 import type Product from '../types/interfaces/IProduct.js';
 import type ICartMethods from '../types/interfaces/ICartMethods.js';
 
 import { buildElement, removeDOMElement } from '../utils/utils.js';
 
+import CacheMethods from '../features/cache/cache-methods.js';
 import DBMethods from '../features/storage/DBMethods.js';
 import sendToast from '../features/toast.js';
 
@@ -10,6 +13,11 @@ const totalPrice = document.querySelector('span[data-cart-product="price"]') as 
 const cartTextInformation = document.querySelector('p[data-cart="information"]') as HTMLParagraphElement;
 
 const db: DBMethods = new DBMethods();
+const cache = new CacheMethods();
+
+// caches.open('data').then(c => {
+//     c.keys().then(a => console.log(a))
+// })
 
 class CartMethods implements ICartMethods {
 
@@ -60,7 +68,7 @@ class CartMethods implements ICartMethods {
         cartTextInformation.textContent = isCartEmpty ? 'Your cart is empty.' : '';
     }
 
-    renderCartProduct(product: Product): HTMLDivElement {
+    async renderCartProduct(product: Product): Promise<HTMLDivElement> {
 
         const productWrapper = buildElement('div')
             .setCustomAttribute('data-cart', 'product')
@@ -71,8 +79,10 @@ class CartMethods implements ICartMethods {
             .setCustomAttribute('data-cart-product', 'details')
             .build();
 
+            const img = await cache.createBlobURL(`../${product.image_src}`) as string;
+
             buildElement('img')
-                .setAttribute('src', `../${product.image_src}`)
+                .setAttribute('src', img)
                 .setCustomAttribute('data-cart-product', 'img')
                 .appendOn(productDetails)
                 .build();
@@ -121,7 +131,7 @@ class CartMethods implements ICartMethods {
         const docFragment: DocumentFragment = document.createDocumentFragment();
 
         for(const product of allProducts.data) {
-            const productRendered: HTMLDivElement = this.renderCartProduct(product);
+            const productRendered: HTMLDivElement = await this.renderCartProduct(product);
             docFragment.appendChild(productRendered);
         }
 

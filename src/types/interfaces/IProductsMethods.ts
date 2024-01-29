@@ -3,8 +3,8 @@ import type Product from './IProduct.js';
 import type DocFragment from '../DocFragment.js';
 
 interface IProductsMethods {
-    renderCategory(category: CategoryName): HTMLDivElement;
-    renderProduct(product: Product, type: CategoryName): HTMLElement;
+    renderCategory(category: CategoryName): HTMLElement;
+    renderProduct(product: Product, type: CategoryName): Promise<HTMLElement>;
     loadProducts(): DocFragment<Product[]>;
 }
 

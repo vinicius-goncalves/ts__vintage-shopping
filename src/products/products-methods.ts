@@ -6,8 +6,10 @@ import { buildElement } from '../utils/utils.js';
 import CartMethods from '../cart/cart-methods.js';
 import products from '../products/products-list.js';
 import IProductsMethods from '../types/interfaces/IProductsMethods.js';
+import CacheMethods from '../features/cache/cache-methods.js';
 
 const cm = new CartMethods();
+const cache = new CacheMethods();
 
 class ProductsMethods implements IProductsMethods {
 
@@ -33,7 +35,7 @@ class ProductsMethods implements IProductsMethods {
         return div;
     }
 
-    renderProduct(product: Product, type: CategoryName): HTMLElement {
+    async renderProduct(product: Product, type: CategoryName): Promise<HTMLElement> {
 
         const productContainer: HTMLElement = buildElement('article')
             .setCustomAttribute('data-product-type', type)
@@ -55,8 +57,11 @@ class ProductsMethods implements IProductsMethods {
                 .appendOn(hgroup)
                 .build();
 
+            const img = await cache.createBlobURL(product.image_src) as string;
+            console.log(img)
+
             const productImg: HTMLImageElement = buildElement('img')
-                .setAttribute('src', product.image_src)
+                .setAttribute('src', img)
                 .build();
 
             const figure: HTMLElement = buildElement('figure')
@@ -82,8 +87,8 @@ class ProductsMethods implements IProductsMethods {
             const category = this.renderCategory(categoryName as CategoryName);
             const productContainer = category.querySelector('div') as HTMLDivElement;
 
-            productsList.forEach((product: Product) => {
-                const productRendered = this.renderProduct(product, categoryName as CategoryName);
+            productsList.forEach(async (product: Product) => {
+                const productRendered = await this.renderProduct(product, categoryName as CategoryName);
                 productContainer.appendChild(productRendered);
             });
 
