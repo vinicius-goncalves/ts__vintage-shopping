@@ -4,9 +4,9 @@
 </div>
 
 <div align="center">
-	<img alt="ts logo" src="https://img.shields.io/badge/TypeScript-323330?style=for-the-badge&logo=typescript&logoColor=3077C5">
-	<img alt="html5 logo" src="https://img.shields.io/badge/HTML%205-323330?style=for-the-badge&logo=html5">
-	<img alt="css3 logo" src="https://img.shields.io/badge/CSS3-323330?style=for-the-badge&logo=css3&logoColor=007ACC">
+	<img alt="ts logo" src="https://img.shields.io/badge/TypeScript-323330?style=for-the-badge&logo=typescript&logoColor=3077C5" />
+	<img alt="html5 logo" src="https://img.shields.io/badge/HTML5-323330?style=for-the-badge&logo=html5" />
+	<img alt="css3 logo" src="https://img.shields.io/badge/CSS3-323330?style=for-the-badge&logo=css3&logoColor=007ACC" />
 </div>
 
 <div>
